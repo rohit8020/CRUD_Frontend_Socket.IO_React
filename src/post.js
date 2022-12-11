@@ -8,7 +8,7 @@ function post(props) {
     return (
       <ImageContainer
       key={Math.random().toString()}
-      imagePath={'https://boiling-badlands-66933.herokuapp.com/'+img}
+      imagePath={`${process.env.REACT_APP_BACKEND_URL}/`+img}
       />
     )
   })

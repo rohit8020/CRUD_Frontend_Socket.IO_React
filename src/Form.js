@@ -55,7 +55,7 @@ function form(props) {
         ):null}
         {(props.formType==='creating')?imagePreview:null}
         <div style={{display: 'flex',justifyContent: 'flex-end'}}>
-        <Button style={{marginTop: '20px'}} inverted color='green' onClick={()=>{props.submitForm(data)
+        <Button type='button' style={{marginTop: '20px'}} inverted color='green' onClick={()=>{props.submitForm(data)
         props.showModalHandler(false)
         }}>Submit</Button>
         </div>

@@ -21,7 +21,8 @@ function App() {
   const [open, setOpen] = React.useState(false)
 
   useEffect(() => {
-    const socket = io.connect("https://boiling-badlands-66933.herokuapp.com/", {
+    console.log(`${process.env.REACT_APP_BACKEND_URL}`)
+    const socket = io.connect(`${process.env.REACT_APP_BACKEND_URL}`, {
       transports: ["websocket"],
     });
     socket.on("post", (data) => {
@@ -50,7 +51,7 @@ function App() {
     });
 
     axios
-      .get("https://boiling-badlands-66933.herokuapp.com/posts")
+      .get(`${process.env.REACT_APP_BACKEND_URL}/posts`)
       .then((response) => {
         // console.log(response.data)
         setPosts((prevPost) => {
@@ -91,6 +92,7 @@ function App() {
 
   const submitForm = useCallback(
     (data) => {
+      
       const formData = new FormData();
 
       for (const name in files) {
@@ -108,7 +110,7 @@ function App() {
           formData.append("imgs", images[i]);
         }
         axios
-          .put(`https://boiling-badlands-66933.herokuapp.com/post/${data}`, formData)
+          .put(`${process.env.REACT_APP_BACKEND_URL}/post/${data}`, formData)
           .then(() => {
             // console.log(response);
           })
@@ -119,7 +121,7 @@ function App() {
 
       if (formType === "creating") {
         axios
-          .post("https://boiling-badlands-66933.herokuapp.com/newpost", formData)
+          .post(`${process.env.REACT_APP_BACKEND_URL}/newpost`, formData)
           .then(() => {
             // console.log(response);
           })
@@ -157,7 +159,7 @@ function App() {
   };
 
   const deletePostHandler = (data)=>{
-    axios.delete(`https://boiling-badlands-66933.herokuapp.com/post/${data}`)
+    axios.delete(`${process.env.REACT_APP_BACKEND_URL}/post/${data}`)
     .then(() => {
       // console.log(response)
     })
@@ -262,7 +264,7 @@ function App() {
 
   return (
     <Container>
-        <Container textAlign='center'><Header as='h1'>CRUD Operation Scoket.IO</Header></Container>
+        <Container textAlign='center'><Header as='h1'>Real-Time Create Read Update Delete operations using Socket.IO </Header></Container>
         <Button  onClick={()=>{createPostHandler()
         setOpen(true)
         }}>Create Post</Button>
